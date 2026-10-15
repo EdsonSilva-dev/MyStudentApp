@@ -1,47 +1,49 @@
+
 package com.example.mystudentapp
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.activity.enableEdgeToEdge
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Text
-import androidx.compose.runtime.Composable
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
-import com.example.mystudentapp.ui.theme.MyStudentAppTheme
+import androidx.activity.compose.BackHandler
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.runtime.*
+import androidx.compose.runtime.saveable.rememberSaveable
 
 class MainActivity : ComponentActivity() {
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        enableEdgeToEdge()
+
         setContent {
-            MyStudentAppTheme {
-                Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    Greeting(
-                        name = "Android",
-                        modifier = Modifier.padding(innerPadding)
-                    )
-                }
+            MaterialTheme {
+                MyStudentApp()
             }
         }
     }
 }
 
 @Composable
-fun Greeting(name: String, modifier: Modifier = Modifier) {
-    Text(
-        text = "Hello $name!",
-        modifier = modifier
-    )
-}
+fun MyStudentApp() {
+    var currentPage by rememberSaveable {
+        mutableStateOf("home")
+    }
 
-@Preview(showBackground = true)
-@Composable
-fun GreetingPreview() {
-    MyStudentAppTheme {
-        Greeting("Android")
+    BackHandler(enabled = currentPage != "home") {
+        currentPage = "home"
+    }
+
+    when (currentPage) {
+        "home" -> HomeScreen(
+            onRegister = { currentPage = "register" },
+            onSearch = { currentPage = "search" }
+        )
+
+        "register" -> RegistrationScreen(
+            onBack = { currentPage = "home" }
+        )
+
+        "search" -> SearchScreen(
+            onBack = { currentPage = "home" }
+        )
     }
 }

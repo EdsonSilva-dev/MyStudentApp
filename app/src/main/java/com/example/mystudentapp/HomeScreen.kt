@@ -28,7 +28,7 @@ fun HomeScreen(
 
         Spacer(modifier = Modifier.height(12.dp))
 
-        Text("Student Registration System")
+
 
         Spacer(modifier = Modifier.height(32.dp))
 

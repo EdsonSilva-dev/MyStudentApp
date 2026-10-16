@@ -15,6 +15,9 @@ import androidx.compose.ui.unit.dp
 import com.example.mystudentapp.database.Student
 import com.example.mystudentapp.database.StudentDatabase
 import kotlinx.coroutines.launch
+import androidx.compose.foundation.layout.height
+import androidx.compose.ui.unit.dp
+import androidx.compose.foundation.shape.RoundedCornerShape
 
 @Composable
 fun RegistrationScreen(onBack: () -> Unit) {
@@ -140,11 +143,16 @@ fun RegistrationScreen(onBack: () -> Unit) {
 
         Spacer(modifier = Modifier.height(24.dp))
 
+
         OutlinedButton(
             onClick = onBack,
-            modifier = Modifier.fillMaxWidth()
+            modifier = Modifier
+                .fillMaxWidth()
+                .height(40.dp),
+            shape = RoundedCornerShape(8.dp)
         ) {
             Text("Back to Home")
         }
+
     }
 }
